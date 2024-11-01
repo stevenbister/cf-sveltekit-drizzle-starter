@@ -4,6 +4,7 @@ declare global {
 	namespace App {
 		interface Platform {
 			env: {
+				DB: D1Database;
 				ENVIRONMENT: 'development' | 'preview' | 'production';
 			};
 			cf: CfProperties;

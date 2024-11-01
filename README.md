@@ -1,28 +1,56 @@
-# sv
+# CF Svelte Drizzle starter
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## Getting started
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+### Create a database
 
 ```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+pnpm dlx wrangler d1 create my-database
 ```
+
+### Bind to your D1 database
+
+Copy the lines obtained from the cli command above.
+
+Add them to the wrangler.toml file. Particularly the database name and the id.
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've created a project and installed dependencies with `pnpm install`, start a development server:
 
 ```bash
-npm run dev
+pnpm dev
 
 # or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm dev -- --open
+```
+
+### Creating and applying migrations
+
+In this project we're using Drizzle as our ORM.
+
+To create a migration:
+
+```bash
+pnpm db:generate
+```
+
+Apply that migration to the local db
+
+```bash
+pnpm db:migrate
+```
+
+### Seeding
+
+Because D1 requires serverless bindings to interact with Drizzle we have an api route to seed our data `/api/seed`.
+
+This is only available when the development environment.
+
+We can seed our local db from this route by running
+
+```bash
+pnpm db:seed:local
 ```
 
 ## Building
@@ -30,9 +58,21 @@ npm run dev -- --open
 To create a production version of your app:
 
 ```bash
-npm run build
+pnpm build
 ```
 
-You can preview the production build with `npm run preview`.
+You can preview the production build with `pnpm preview`.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Deployment
+
+Deploy the database by running
+
+```bash
+pnpm deploy:db
+```
+
+Deploy pages by running
+
+```bash
+pnpm deploy:pages
+```
