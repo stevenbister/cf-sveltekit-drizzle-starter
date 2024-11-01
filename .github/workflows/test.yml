@@ -44,7 +44,7 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v3
-      - run: pnpm typecheck
+      - run: pnpm check
 
   vitest:
     name: ⚡ Vitest
@@ -52,7 +52,7 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v3
-      - run: pnpm test
+      - run: pnpm test:unit
 
   playwright:
     name: 🎭 Playwright
