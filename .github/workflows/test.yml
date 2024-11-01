@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20]
-     steps:
+    steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -23,12 +23,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
       - name: Install dependencies
-        - run: pnpm install
-        - name: Install Playwright Browsers
-          if: ${{ matrix.job == 'playwright' }}
-          run: pnpm dlx playwright install --with-deps
-      outputs:
-        cache-key: ${{ steps.cache.outputs.cache-hit }} # Use output to cache pnpm
+        run: pnpm install
+      - name: Install Playwright Browsers
+        if: ${{ matrix.job == 'playwright' }}
+        run: pnpm dlx playwright install --with-deps
+    outputs:
+      cache-key: ${{ steps.cache.outputs.cache-hit }} # Use output to cache pnpm
 
   lint:
     name: ⬣ Lint
