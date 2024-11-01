@@ -40,6 +40,8 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 9
+      - name: Install dependencies
+        run: pnpm install
       - run: pnpm lint
 
   typecheck:
@@ -52,6 +54,8 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 9
+      - name: Install dependencies
+        run: pnpm install
       - run: pnpm check
 
   vitest:
@@ -64,6 +68,8 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 9
+      - name: Install dependencies
+        run: pnpm install
       - run: pnpm test:unit
 
   playwright:
@@ -77,6 +83,8 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 9
+      - name: Install dependencies
+        run: pnpm install
       - run: pnpm test:e2e
       - uses: actions/upload-artifact@v3
         if: always()
