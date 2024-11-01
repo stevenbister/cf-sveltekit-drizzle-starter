@@ -1,0 +1,60 @@
+name: Tests CI
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  setup:
+    name: 🔧 Setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: pnpm install
+      - name: Install Playwright Browsers
+        if: ${{ matrix.job == 'playwright' }}
+        run: pnpm dlx playwright install --with-deps
+    outputs:
+      cache-key: ${{ steps.cache.outputs.cache-hit }} # Use output to cache pnpm
+
+  lint:
+    name: ⬣ Lint
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v3
+      - run: pnpm lint
+
+  typecheck:
+    name: ʦ TypeScript
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v3
+      - run: pnpm typecheck
+
+  vitest:
+    name: ⚡ Vitest
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v3
+      - run: pnpm test
+
+  playwright:
+    name: 🎭 Playwright
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v3
+      - run: pnpm test:e2e
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
