@@ -24,6 +24,17 @@ CLOUDFLARE_D1_TOKEN=
 
 These can all be found in your cloudflare dashboard.
 
+- https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/
+- https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
+
+### Bootstrap local db
+
+Before starting any work you'll need to bootstrap the D1 database locally.
+
+```bash
+pnpm db:generate
+```
+
 ## Developing
 
 Once you've created a project and installed dependencies with `pnpm install`, start a development server:

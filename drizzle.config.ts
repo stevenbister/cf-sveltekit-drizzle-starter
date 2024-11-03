@@ -4,7 +4,7 @@ import path from 'path';
 
 function getLocalD1DB() {
 	try {
-		const basePath = path.resolve('.wrangler/state/v3/d1');
+		const basePath = path.resolve('.wrangler/state/v3');
 		const dbFile = fs
 			.readdirSync(basePath, { encoding: 'utf-8', recursive: true })
 			.find((f) => f.endsWith('.sqlite'));
@@ -21,7 +21,7 @@ function getLocalD1DB() {
 }
 
 export default defineConfig({
-	schema: './src/lib/db/schema/*.ts',
+	schema: './src/lib/server/db/schema/*.ts',
 	out: './drizzle/migrations',
 	verbose: true,
 	strict: true,
