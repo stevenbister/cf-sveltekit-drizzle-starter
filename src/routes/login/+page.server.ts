@@ -29,7 +29,7 @@ export const actions: Actions = {
 		if (!isCorrectPassword) return fail(400, { message: 'Incorrect email or password' });
 
 		const sessionToken = session.generateToken();
-		const newSession = await session.create(sessionToken, 1);
+		const newSession = await session.create(sessionToken, existingUser.id);
 		session.setSessionTokenCookie(event, sessionToken, newSession.expiresAt);
 
 		return redirect(302, '/');
@@ -51,17 +51,17 @@ export const actions: Actions = {
 			});
 
 		try {
-			await user.createUser(email, password);
+			const newUser = await user.createUser(email, password);
 
 			const sessionToken = session.generateToken();
-			const newSession = await session.create(sessionToken, 1);
+			const newSession = await session.create(sessionToken, newUser.id);
 			session.setSessionTokenCookie(event, sessionToken, newSession.expiresAt);
-
-			return redirect(302, '/');
 		} catch (error) {
-			console.error(error);
+			console.error('ERROR', error);
 
 			return fail(500, { message: 'An error has occurred' });
 		}
+
+		return redirect(302, '/');
 	}
 };
