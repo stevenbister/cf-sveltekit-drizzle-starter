@@ -50,6 +50,11 @@ export const actions: Actions = {
 				message: 'Invalid password, make sure password is more than 6 characters'
 			});
 
+		const results = await user.getByEmail(email);
+
+		const existingUser = results.at(0);
+		if (existingUser) return fail(400, { message: 'User already exists' });
+
 		try {
 			const newUser = await user.createUser(email, password);
 
