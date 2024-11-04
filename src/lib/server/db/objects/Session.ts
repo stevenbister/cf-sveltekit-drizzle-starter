@@ -24,12 +24,12 @@ export class Session extends TableCommon<typeof sessionTable> {
 	generateToken() {
 		const bytes = new Uint8Array(20);
 		crypto.getRandomValues(bytes);
-
 		const token = encodeBase32LowerCaseNoPadding(bytes);
+
 		return token;
 	}
 
-	async create(token: string, userId: number) {
+	async create(token: string, userId: string) {
 		const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 		const expiresAt = new Date(Date.now() + DAY_IN_MS * 30);
 
