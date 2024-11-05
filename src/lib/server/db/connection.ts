@@ -2,7 +2,7 @@ import { cfBindingNotFound } from '$lib/utils/cfBindingNotFound';
 import { error } from '@sveltejs/kit';
 import { drizzle } from 'drizzle-orm/d1';
 
-type DBType = App.Platform['env']['DB'];
+export type DBType = App.Platform['env']['DB'];
 export type DbClient = ReturnType<typeof drizzle>;
 
 export class Database {

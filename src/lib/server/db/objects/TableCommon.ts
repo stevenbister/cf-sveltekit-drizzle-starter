@@ -23,7 +23,7 @@ export class TableCommon<T extends TableWithID = TableWithID> {
 		return await this.db.insert(this.schema).values(item).returning();
 	}
 
-	async deleteById(id: number) {
+	async deleteById(id: number | string) {
 		return await this.db.delete(this.schema).where(eq(this.schema.id, id)).returning();
 	}
 
@@ -31,7 +31,7 @@ export class TableCommon<T extends TableWithID = TableWithID> {
 		return await this.db.delete(this.schema);
 	}
 
-	async getById(id: number) {
+	async getById(id: number | string) {
 		return await this.db.select().from(this.schema).where(eq(this.schema.id, id));
 	}
 

@@ -9,7 +9,7 @@ import type { User as UserTable } from '../schema/user';
 import { user as userTable } from '../schema/user';
 import { TableCommon } from './TableCommon';
 
-const DAY_IN_MS = 1000 * 60 * 60 * 24;
+export const DAY_IN_MS = 1000 * 60 * 60 * 24;
 export const SESSION_COOKIE_NAME = 'session';
 
 export type SessionValidationResult =
@@ -24,12 +24,12 @@ export class Session extends TableCommon<typeof sessionTable> {
 	generateToken() {
 		const bytes = new Uint8Array(20);
 		crypto.getRandomValues(bytes);
-
 		const token = encodeBase32LowerCaseNoPadding(bytes);
+
 		return token;
 	}
 
-	async create(token: string, userId: number) {
+	async create(token: string, userId: string) {
 		const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 		const expiresAt = new Date(Date.now() + DAY_IN_MS * 30);
 
@@ -67,7 +67,7 @@ export class Session extends TableCommon<typeof sessionTable> {
 		const { session, user } = results[0];
 
 		if (Date.now() >= session.expiresAt.getTime()) {
-			await this.db.delete(this.schema).where(eq(this.schema.id, session.id));
+			await this.deleteById(sessionId);
 
 			return { session: null, user: null };
 		}
@@ -77,18 +77,18 @@ export class Session extends TableCommon<typeof sessionTable> {
 			session.expiresAt = new Date(Date.now() + DAY_IN_MS * 30);
 
 			await this.db
-				.update(sessionTable)
+				.update(this.schema)
 				.set({
 					expiresAt: session.expiresAt
 				})
-				.where(eq(sessionTable.id, session.id));
+				.where(eq(this.schema.id, session.id));
 		}
 
 		return { session, user };
 	}
 
 	async invalidate(sessionId: string) {
-		await this.db.delete(sessionTable).where(eq(this.schema.id, sessionId));
+		await this.deleteById(sessionId);
 	}
 
 	setSessionTokenCookie(event: RequestEvent, token: string, expiresAt: Date) {
