@@ -9,7 +9,7 @@ import type { User as UserTable } from '../schema/user';
 import { user as userTable } from '../schema/user';
 import { TableCommon } from './TableCommon';
 
-const DAY_IN_MS = 1000 * 60 * 60 * 24;
+export const DAY_IN_MS = 1000 * 60 * 60 * 24;
 export const SESSION_COOKIE_NAME = 'session';
 
 export type SessionValidationResult =
