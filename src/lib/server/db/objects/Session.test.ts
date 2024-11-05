@@ -155,6 +155,7 @@ describe('Session', () => {
 		});
 
 		it('extends session expiration when near expiration', async () => {
+			vi.useFakeTimers();
 			const nearExpiringDate = new Date(Date.now() + DAY_IN_MS * 14); // 14 days from now
 			const newExpiryDate = new Date(Date.now() + DAY_IN_MS * 30);
 
@@ -185,6 +186,8 @@ describe('Session', () => {
 			});
 
 			expect(mockDbClient.update).toHaveBeenCalled(); // Ensure expiration was updated
+
+			vi.useRealTimers();
 		});
 	});
 
