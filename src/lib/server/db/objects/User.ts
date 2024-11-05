@@ -55,6 +55,7 @@ export class User extends TableCommon<typeof user> {
 	}
 
 	validatePassword(password: unknown): password is string {
+		// TODO: Make this enforce more secure passwords
 		return typeof password === 'string' && password.length >= 6 && password.length <= 255;
 	}
 }
