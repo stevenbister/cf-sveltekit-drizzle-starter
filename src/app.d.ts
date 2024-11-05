@@ -1,12 +1,15 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
+
+interface Env {
+	DB: D1Database;
+	ENVIRONMENT: 'development' | 'preview' | 'production';
+}
+
 declare global {
 	namespace App {
 		interface Platform {
-			env: {
-				DB: D1Database;
-				ENVIRONMENT: 'development' | 'preview' | 'production';
-			};
+			env: Env;
 			cf: CfProperties;
 			ctx: ExecutionContext;
 		}
@@ -16,6 +19,11 @@ declare global {
 			session: import('$lib/server/db/objects/Session').SessionValidationResult['session'];
 		}
 	}
+}
+
+declare module 'cloudflare:test' {
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	interface ProvidedEnv extends Env {}
 }
 
 export {};
