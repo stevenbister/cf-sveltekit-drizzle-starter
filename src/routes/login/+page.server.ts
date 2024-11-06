@@ -1,11 +1,10 @@
-import { Database } from '$lib/server/db/connection';
 import { Session } from '$lib/server/db/objects/Session';
 import { User } from '$lib/server/db/objects/User';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	login: async (event) => {
-		const db = Database.getInstance();
+		const { db } = event.locals;
 		const user = new User(db);
 		const session = new Session(db);
 
@@ -35,7 +34,7 @@ export const actions: Actions = {
 		return redirect(302, '/');
 	},
 	register: async (event) => {
-		const db = Database.getInstance();
+		const { db } = event.locals;
 		const user = new User(db);
 		const session = new Session(db);
 

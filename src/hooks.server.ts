@@ -4,6 +4,8 @@ import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	Database.initialize(event.platform?.env.DB);
+	const db = Database.getInstance();
+	event.locals.db = db;
 
 	const sessionToken = event.cookies.get(SESSION_COOKIE_NAME);
 
@@ -14,7 +16,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return await resolve(event);
 	}
 
-	const db = Database.getInstance();
 	const auth = new Session(db);
 
 	const { session, user } = await auth.validate(sessionToken);
