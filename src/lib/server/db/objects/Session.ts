@@ -1,3 +1,5 @@
+import { SESSION_COOKIE_NAME } from '$lib/constants/auth';
+import { DAY_IN_MS } from '$lib/constants/misc';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/encoding';
 import type { RequestEvent } from '@sveltejs/kit';
@@ -8,9 +10,6 @@ import { session as sessionTable } from '../schema/session';
 import type { User as UserTable } from '../schema/user';
 import { user as userTable } from '../schema/user';
 import { TableCommon } from './TableCommon';
-
-export const DAY_IN_MS = 1000 * 60 * 60 * 24;
-export const SESSION_COOKIE_NAME = 'session';
 
 export type SessionValidationResult =
 	| { session: SessionTable; user: Omit<UserTable, 'password'> }
