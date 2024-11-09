@@ -6,7 +6,6 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "pnpm run build && wrangler pages dev",
-		"preview:ci": "pnpm db:generate && pnpm db:migrate &&pnpm run build && wrangler pages dev",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
