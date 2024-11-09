@@ -1,3 +1,5 @@
+import { SESSION_COOKIE_NAME } from '$lib/constants/auth';
+import { DAY_IN_MS } from '$lib/constants/misc';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { encodeHexLowerCase } from '@oslojs/encoding';
 import type { RequestEvent } from '@sveltejs/kit';
@@ -5,7 +7,7 @@ import { drizzle } from 'drizzle-orm/d1';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { DbClient } from '../connection';
 import type { SessionValidationResult } from './Session';
-import { DAY_IN_MS, Session, SESSION_COOKIE_NAME } from './Session';
+import { Session } from './Session';
 
 vi.mock('drizzle-orm/d1', () => ({
 	drizzle: vi.fn()

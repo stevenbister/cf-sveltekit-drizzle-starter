@@ -1,11 +1,11 @@
-import { Database } from '$lib/server/db/connection';
+import { VALIDATION_MESSAGE } from '$lib/constants/auth';
 import { Session } from '$lib/server/db/objects/Session';
 import { User } from '$lib/server/db/objects/User';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	login: async (event) => {
-		const db = Database.getInstance();
+		const { db } = event.locals;
 		const user = new User(db);
 		const session = new Session(db);
 
@@ -13,20 +13,22 @@ export const actions: Actions = {
 		const email = formData.get('email');
 		const password = formData.get('password');
 
-		if (!user.validateEmail(email)) return fail(400, { message: 'Invalid email' });
+		if (!user.validateEmail(email)) return fail(400, { message: VALIDATION_MESSAGE.INVALID_EMAIL });
 
 		if (!user.validatePassword(password))
 			return fail(400, {
-				message: 'Invalid password, make sure password is more than 6 characters'
+				message: VALIDATION_MESSAGE.INVALID_PASSWORD
 			});
 
 		const results = await user.getByEmail(email);
 
 		const existingUser = results.at(0);
-		if (!existingUser) return fail(400, { message: 'Incorrect email or password' });
+		if (!existingUser)
+			return fail(400, { message: VALIDATION_MESSAGE.INCORRECT_EMAIL_OR_PASSWORD });
 
 		const isCorrectPassword = user.verifyPassword(existingUser.password, password);
-		if (!isCorrectPassword) return fail(400, { message: 'Incorrect email or password' });
+		if (!isCorrectPassword)
+			return fail(400, { message: VALIDATION_MESSAGE.INCORRECT_EMAIL_OR_PASSWORD });
 
 		const sessionToken = session.generateToken();
 		const newSession = await session.create(sessionToken, existingUser.id);
@@ -35,7 +37,7 @@ export const actions: Actions = {
 		return redirect(302, '/');
 	},
 	register: async (event) => {
-		const db = Database.getInstance();
+		const { db } = event.locals;
 		const user = new User(db);
 		const session = new Session(db);
 
@@ -43,17 +45,17 @@ export const actions: Actions = {
 		const email = formData.get('email');
 		const password = formData.get('password');
 
-		if (!user.validateEmail(email)) return fail(400, { message: 'Invalid email' });
+		if (!user.validateEmail(email)) return fail(400, { message: VALIDATION_MESSAGE.INVALID_EMAIL });
 
 		if (!user.validatePassword(password))
 			return fail(400, {
-				message: 'Invalid password, make sure password is more than 6 characters'
+				message: VALIDATION_MESSAGE.INVALID_PASSWORD
 			});
 
 		const results = await user.getByEmail(email);
 
 		const existingUser = results.at(0);
-		if (existingUser) return fail(400, { message: 'User already exists' });
+		if (existingUser) return fail(400, { message: VALIDATION_MESSAGE.USER_ALREADY_EXISTS });
 
 		try {
 			const newUser = await user.createUser(email, password);

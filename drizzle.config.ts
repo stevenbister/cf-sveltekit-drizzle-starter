@@ -26,7 +26,7 @@ export default defineConfig({
 	verbose: true,
 	strict: true,
 	dialect: 'sqlite',
-	...(process.env.NODE_ENV === 'production'
+	...(process.env.NODE_ENV === 'production' || process.env.CI
 		? {
 				driver: 'd1-http',
 				dbCredentials: {

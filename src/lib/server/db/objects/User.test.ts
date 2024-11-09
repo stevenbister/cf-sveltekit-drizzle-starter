@@ -13,7 +13,7 @@ const mockUser: Awaited<ReturnType<typeof user.createUser>> = {
 	id: 'mock-user-id',
 	email: 'mock-user-email@test.com'
 };
-const mockPassword = 'mock-password';
+const mockPassword = 'moc5-p@ssWord';
 
 const user = new User(mockDbClient);
 
@@ -92,13 +92,11 @@ describe('User', () => {
 
 	describe('User.validatePassword', () => {
 		it('returns true when password is valid', () => {
-			const password = 'password';
-
-			expect(user.validatePassword(password)).toBe(true);
+			expect(user.validatePassword(mockPassword)).toBe(true);
 		});
 
 		it('returns false when password is invalid', () => {
-			const password = 'pass';
+			const password = 'password';
 
 			expect(user.validatePassword(password)).toBe(false);
 		});
