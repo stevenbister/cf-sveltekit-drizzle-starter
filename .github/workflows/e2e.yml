@@ -6,8 +6,8 @@ on:
 
 jobs:
   build:
+    name: 🏗️ Wait for CF build
     runs-on: ubuntu-latest
-    # Allow GITHUB_TOKEN to write deployments for my action (https://docs.github.com/en/actions/security-guides/automatic-token-authentication)
     permissions:
       contents: read
       deployments: write
@@ -26,7 +26,7 @@ jobs:
           githubToken: ${{ secrets.GH_TOKEN }}
           commitHash: ${{ steps.push-changes.outputs.commit-hash }}
 
-      - name: Check
+      - name: 🕵️ Check
         shell: bash
         env:
           ENV: ${{ steps.cf-pages.outputs.environment }}
