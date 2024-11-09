@@ -43,34 +43,23 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     needs: build
-    if: github.event.deployment_status.state == 'success'
     steps:
-      - name: Check
-        shell: bash
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Install dependencies
+        run: pnpm install
+      - name: Install Playwright Browsers
+        run: pnpx playwright install --with-deps
+      - name: Run Playwright tests
         env:
-          ENV: ${{ needs.build.outputs.env }}
-          ALIAS: ${{ needs.build.outputs.alias }}
-        run: |
-          echo SETTING VALUES TO OUTPUT
-          echo "The environment is: ${ENV}"
-          echo "env=${ENV}" >> $GITHUB_OUTPUT
-          echo "The alias is: ${ALIAS}"
-          echo "alias=${ALIAS}" >> $GITHUB_OUTPUT
-          echo "${{ github.event.deployment_status.target_url }}"
-    # steps:
-    #   - uses: actions/checkout@v4
-    #   - name: Install pnpm
-    #     uses: pnpm/action-setup@v4
-    #     with:
-    #       version: 9
-    #   - name: Install dependencies
-    #     run: pnpm install
-    #   - name: Install Playwright Browsers
-    #     run: pnpx playwright install --with-deps
-    #   - run: pnpm test:e2e
-    #   - uses: actions/upload-artifact@v3
-    #     if: always()
-    #     with:
-    #       name: playwright-report
-    #       path: playwright-report/
-    #       retention-days: 30
+          PLAYWRIGHT_TEST_BASE_URL: ${{ needs.build.outputs.alias }}
+        run: pnpm test:e2e
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
