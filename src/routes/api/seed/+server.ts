@@ -4,7 +4,7 @@ import { pageNotFound } from '$lib/utils/pageNotFound';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ platform, locals }) => {
-	if (platform?.env.ENVIRONMENT !== 'development') pageNotFound();
+	if (platform?.env.ENVIRONMENT === 'production') pageNotFound();
 	const { db } = locals;
 
 	const session = new Session(db);
