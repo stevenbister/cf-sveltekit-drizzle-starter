@@ -11,6 +11,9 @@ jobs:
     permissions:
       contents: read
       deployments: write
+    outputs:
+      ENV: ${{ steps.cf-pages.outputs.environment }}
+      ALIAS: ${{ steps.cf-pages.outputs.alias }}
     steps:
       - uses: actions/checkout@v4
       - name: 🚏 Await CF Pages
