@@ -46,7 +46,7 @@ pnpm dev
 pnpm dev -- --open
 ```
 
-### Creating and applying migrations
+### Creating and applying migrations
 
 In this project we're using Drizzle as our ORM.
 
@@ -83,6 +83,28 @@ pnpm build
 ```
 
 You can preview the production build with `pnpm preview`.
+
+## CI
+
+In order for the CI workflows to run there's a couple of things you'll need to setup in GitHub.
+
+You'll need to add the following to the repository secrets.
+
+```txt
+CLOUDFLARE_ACCOUNT_ID=
+CLOUDFLARE_DATABASE_ID=
+CLOUDFLARE_D1_TOKEN=
+CLOUDFLARE_PAGES_API_TOKEN=
+GH_TOKEN=
+```
+
+Your `CLOUDFLARE_PAGES_API_TOKEN` should be created in your CF account: https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
+
+And this should have at least **Workers Builds Configuration:Read, Cloudflare Pages:Read** permissions.
+
+You'll also need to generate a GitHub access token with **Deployments** set to write.
+
+https://docs.github.com/en/rest/deployments/deployments?apiVersion=2022-11-28#create-a-deployment
 
 ## Deployment
 
