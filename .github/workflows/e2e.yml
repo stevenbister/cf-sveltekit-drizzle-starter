@@ -22,5 +22,15 @@ jobs:
           project: 'example-pages-project'
           githubToken: ${{ secrets.GH_TOKEN }}
           commitHash: ${{ steps.push-changes.outputs.commit-hash }}
-          run: echo "output=$(echo steps.cf-pages.outputs)" >> $GITHUB_OUTPUT
-          shell: bash
+
+      - name: Check
+        shell: bash
+        env:
+          ENV: ${{ steps.cf-pages.outputs.environment }}
+          ALIAS: ${{ steps.cf-pages.outputs.alias }}
+        run: |
+          echo SETTING VALUES TO OUTPUT
+          echo "The environment is: ${ENV}"
+          echo "env=${ENV}" >> $GITHUB_OUTPUT
+          echo "The alias is: ${ALIAS}"
+          echo "alias=${ALIAS}" >> $GITHUB_OUTPUT
