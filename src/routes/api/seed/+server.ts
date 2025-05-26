@@ -5,7 +5,7 @@ import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ platform, locals }) => {
 	if (platform?.env.ENVIRONMENT === 'production') pageNotFound();
-	const { db } = locals;
+	const { db, auth } = locals;
 
 	const session = new Session(db);
 	const user = new User(db);
@@ -21,7 +21,13 @@ export const GET: RequestHandler = async ({ platform, locals }) => {
 
 	console.log('Creating test users...');
 
-	await user.createUser('test@test.com', 'moc5-p@ssWord');
+	await auth.api.signUpEmail({
+		body: {
+			email: 'john@doe.com',
+			password: 'password',
+			name: 'John Doe'
+		}
+	});
 
 	console.log('Test users created');
 

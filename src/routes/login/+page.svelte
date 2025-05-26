@@ -1,21 +1,35 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import type { ActionData } from './$types';
+	import { authClient } from '$lib/auth/client';
+	import { writable } from 'svelte/store';
 
-	let { form }: { form: ActionData } = $props();
+	const email = writable('');
+	const password = writable('');
+
+	const handleSignIn = async () => {
+		await authClient.signIn.email(
+			{
+				email: $email,
+				password: $password,
+				callbackURL: '/'
+			},
+			{
+				onError(context) {
+					alert(context.error.message);
+				}
+			}
+		);
+	};
 </script>
 
 <h1>Login/Register</h1>
-<form method="post" action="?/login" use:enhance>
+<form method="post" on:submit|preventDefault={handleSignIn}>
 	<label>
 		Email
-		<input name="email" />
+		<input name="email" bind:value={$email} />
 	</label>
 	<label>
 		Password
-		<input type="password" name="password" />
+		<input type="password" name="password" bind:value={$password} />
 	</label>
 	<button>Login</button>
-	<button formaction="?/register">Register</button>
 </form>
-<p style="color: red">{form?.message ?? ''}</p>

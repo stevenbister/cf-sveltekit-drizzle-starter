@@ -2,6 +2,7 @@ import { env } from 'cloudflare:test';
 import { drizzle } from 'drizzle-orm/d1';
 import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest';
 import { Database, type DBType } from './connection';
+import * as schema from './schema';
 
 vi.mock('drizzle-orm/d1', () => ({
 	drizzle: vi.fn()
@@ -23,7 +24,7 @@ describe('Database.initialize', () => {
 
 		const dbClient = Database.initialize(mockDBBindings);
 
-		expect(drizzle).toHaveBeenCalledWith(mockDBBindings);
+		expect(drizzle).toHaveBeenCalledWith(mockDBBindings, { schema });
 		expect(dbClient).toBe(mockDbClient);
 	});
 

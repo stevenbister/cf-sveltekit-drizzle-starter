@@ -1,10 +1,12 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
-
+import type { getAuth } from '$lib/auth/server';
 interface Env {
 	DB: D1Database;
 	ENVIRONMENT: 'development' | 'preview' | 'production';
 }
+
+export type Auth = ReturnType<typeof getAuth>;
 
 declare global {
 	namespace App {
@@ -15,9 +17,13 @@ declare global {
 		}
 
 		interface Locals {
-			user: import('$lib/server/db/objects/Session').SessionValidationResult['user'];
-			session: import('$lib/server/db/objects/Session').SessionValidationResult['session'];
 			db: import('$lib/server/db/connection').DbClient;
+			auth: Auth;
+			user?: {
+				id: string;
+				name: string;
+				email: string;
+			};
 		}
 	}
 }
