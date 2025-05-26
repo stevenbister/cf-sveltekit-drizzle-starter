@@ -53,9 +53,9 @@
 		"wrangler": "^3.84.1"
 	},
 	"dependencies": {
-		"@oslojs/crypto": "^1.0.1",
-		"@oslojs/encoding": "^1.1.0",
-		"bcrypt-edge": "^0.1.0",
+		"add": "^2.0.6",
+		"bcryptjs": "^3.0.2",
+		"better-auth": "^1.2.8",
 		"drizzle-orm": "^0.33.0"
 	}
 }
