@@ -1,6 +1,7 @@
 import { Session } from '$lib/server/db/objects/Session';
 import { User } from '$lib/server/db/objects/User';
 import { pageNotFound } from '$lib/utils/pageNotFound';
+import { mockUser } from '../../../../mocks/user';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ platform, locals }) => {
@@ -22,11 +23,7 @@ export const GET: RequestHandler = async ({ platform, locals }) => {
 	console.log('Creating test users...');
 
 	await auth.api.signUpEmail({
-		body: {
-			email: 'john@doe.com',
-			password: 'password',
-			name: 'John Doe'
-		}
+		body: mockUser
 	});
 
 	console.log('Test users created');
