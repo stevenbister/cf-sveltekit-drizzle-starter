@@ -1,9 +1,9 @@
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async (event) => {
-	if (event.locals.user) {
+export const load: PageServerLoad = async ({ locals }) => {
+	if (locals.user) {
 		return {
-			user: event.locals.user
+			user: locals.user
 		};
 	}
 

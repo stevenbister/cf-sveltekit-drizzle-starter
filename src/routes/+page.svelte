@@ -1,17 +1,29 @@
 <script lang="ts">
-	import type { PageServerData } from './$types';
+	import { invalidateAll } from '$app/navigation';
+	import { authClient } from '$lib/auth/client';
+	import { getUserContext } from '$lib/context/user';
 
-	let { data }: { data: PageServerData } = $props();
+	const user = getUserContext();
+
+	const handleSignOut = async () =>
+		await authClient.signOut({
+			fetchOptions: {
+				onSuccess: () => invalidateAll()
+			}
+		});
 </script>
 
-{#if !data.user}
-	<h1>Welcome guest, to SvelteKit</h1>
-{:else}
-	<form method="get" action="/logout">
-		<button>Logout</button>
-	</form>
-
-	<h1>Welcome {data.user?.email}, to SvelteKit</h1>
-{/if}
+<div>
+	{#if user()}
+		<div>
+			<h1>
+				Hello {user().name}
+			</h1>
+			<button onclick={handleSignOut}> Sign Out </button>
+		</div>
+	{:else}
+		<a href="/login">Sign in</a>
+	{/if}
+</div>
 
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>

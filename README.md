@@ -102,6 +102,12 @@ We can seed our local db from this route by running
 pnpm db:seed:local
 ```
 
+## Auth
+
+Auth is handled by [better-auth](https://www.better-auth.com/docs/introduction) and initially set up with a simple email/password auth flow.
+
+Visit their docs to extend this, the server and client configs can be found in `./src/lib/auth`.
+
 ## Building
 
 To create a production version of your app:

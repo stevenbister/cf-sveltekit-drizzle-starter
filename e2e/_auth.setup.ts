@@ -1,6 +1,7 @@
 import { test as setup } from '@playwright/test';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { mockUser } from '../mocks/user';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -15,8 +16,8 @@ setup('db', async ({ page }) => {
 setup('login', async ({ page }) => {
 	await page.goto('/login');
 
-	await page.getByLabel('Email').fill('test@test.com');
-	await page.getByLabel('Password').fill('moc5-p@ssWord');
+	await page.getByLabel('Email').fill(mockUser.email);
+	await page.getByLabel('Password').fill(mockUser.password);
 	await page.getByRole('button', { name: 'Login' }).click();
 
 	await page.waitForURL('/');

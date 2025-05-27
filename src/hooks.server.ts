@@ -1,34 +1,46 @@
-import { SESSION_COOKIE_NAME } from '$lib/constants/auth';
+import { getAuth } from '$lib/auth/server';
 import { Database } from '$lib/server/db/connection';
-import { Session } from '$lib/server/db/objects/Session';
-import type { Handle } from '@sveltejs/kit';
+import { redirect, type Handle } from '@sveltejs/kit';
+import { sequence } from '@sveltejs/kit/hooks';
+import { svelteKitHandler } from 'better-auth/svelte-kit';
 
-export const handle: Handle = async ({ event, resolve }) => {
+const setDB: Handle = async ({ event, resolve }) => {
 	Database.initialize(event.platform?.env.DB);
+
 	const db = Database.getInstance();
 	event.locals.db = db;
 
-	const sessionToken = event.cookies.get(SESSION_COOKIE_NAME);
+	const auth = getAuth(db);
+	event.locals.auth = auth;
 
-	if (!sessionToken) {
-		event.locals.user = null;
-		event.locals.session = null;
-
-		return await resolve(event);
-	}
-
-	const auth = new Session(db);
-
-	const { session, user } = await auth.validate(sessionToken);
-	if (session) {
-		auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
-	} else {
-		auth.deleteSessionTokenCookie(event);
-	}
-
-	event.locals.user = user;
-	event.locals.session = session;
-
-	const response = await resolve(event);
-	return response;
+	return await resolve(event);
 };
+
+const setSession: Handle = async ({ event, resolve }) =>
+	svelteKitHandler({ auth: event.locals.auth, event, resolve });
+
+const checkAuth: Handle = async ({ event, resolve }) => {
+	const { auth } = event.locals;
+
+	// if user is signed in, session should be here if the setSession hook hook has been run
+	const headers = event.request.headers;
+	const session = await auth.api.getSession({ headers });
+
+	if (!session) {
+		const publicPaths = ['/login', '/forgot-password', '/reset-password'];
+
+		if (publicPaths.includes(event.url.pathname)) return await resolve(event);
+
+		redirect(302, '/login');
+	}
+
+	event.locals.user = {
+		id: session.user.id,
+		name: session.user.name,
+		email: session.user.email
+	};
+
+	return await resolve(event);
+};
+
+export const handle = sequence(setDB, setSession, checkAuth);
