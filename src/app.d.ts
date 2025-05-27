@@ -1,6 +1,7 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 import type { getAuth } from '$lib/auth/server';
+
 interface Env {
 	DB: D1Database;
 	ENVIRONMENT: 'development' | 'preview' | 'production';

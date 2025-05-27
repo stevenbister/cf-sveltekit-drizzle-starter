@@ -1,7 +1,8 @@
 import { env } from 'cloudflare:test';
 import { drizzle } from 'drizzle-orm/d1';
-import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest';
-import { Database, type DBType } from './connection';
+import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { type DBType, Database } from './connection';
 import * as schema from './schema';
 
 vi.mock('drizzle-orm/d1', () => ({

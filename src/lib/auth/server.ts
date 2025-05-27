@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth';
 import type { DB } from 'better-auth/adapters/drizzle';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+
 import { hashPassword, verifyPassword } from './password';
 
 export const getAuth = (db: DB) => {

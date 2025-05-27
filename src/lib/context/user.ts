@@ -1,4 +1,5 @@
 import { getContext, setContext } from 'svelte';
+
 import type { User } from '../../app';
 
 const key = 'user';
