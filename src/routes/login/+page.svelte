@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { authClient } from '$lib/auth/client';
 	import { getUserContext } from '$lib/context/user';
+
 	const user = getUserContext();
 
 	const formData = $state({

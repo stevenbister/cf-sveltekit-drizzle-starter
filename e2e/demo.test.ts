@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+
 import { mockUser } from '../mocks/user';
 
 test.describe('logged in', () => {

@@ -1,6 +1,7 @@
 import { Session } from '$lib/server/db/objects/Session';
 import { User } from '$lib/server/db/objects/User';
 import { pageNotFound } from '$lib/utils/pageNotFound';
+
 import { mockUser } from '../../../../mocks/user';
 import type { RequestHandler } from './$types';
 

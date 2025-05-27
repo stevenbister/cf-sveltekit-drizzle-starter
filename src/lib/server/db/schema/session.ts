@@ -1,4 +1,5 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+
 import { user } from './user';
 
 export type Session = typeof session.$inferSelect;

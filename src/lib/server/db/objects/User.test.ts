@@ -1,5 +1,6 @@
 import { drizzle } from 'drizzle-orm/d1';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { DbClient } from '../connection';
 import type { User as UserType } from '../schema/user';
 import { User } from './User';

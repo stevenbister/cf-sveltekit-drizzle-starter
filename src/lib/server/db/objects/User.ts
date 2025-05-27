@@ -1,4 +1,5 @@
 import { eq } from 'drizzle-orm';
+
 import type { DbClient } from '../connection';
 import { user } from '../schema/user';
 import { TableCommon } from './TableCommon';

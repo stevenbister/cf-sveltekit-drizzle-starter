@@ -1,6 +1,6 @@
 import { getAuth } from '$lib/auth/server';
 import { Database } from '$lib/server/db/connection';
-import { redirect, type Handle } from '@sveltejs/kit';
+import { type Handle, redirect } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 

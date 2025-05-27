@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { drizzle } from 'drizzle-orm/d1';
+
 import * as schema from './schema';
 
 export type DBType = App.Platform['env']['DB'];
