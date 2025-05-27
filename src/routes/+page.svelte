@@ -1,31 +1,25 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 	import { authClient } from '$lib/auth/client';
+	import { getUserContext } from '$lib/context/user';
 
-	let { data } = $props();
-	let { user } = $state(data);
+	const user = getUserContext();
+
+	const handleSignOut = async () =>
+		await authClient.signOut({
+			fetchOptions: {
+				onSuccess: () => invalidateAll()
+			}
+		});
 </script>
 
 <div>
-	{#if user}
+	{#if user()}
 		<div>
 			<h1>
-				Hello {user.name}
+				Hello {user().name}
 			</h1>
-			<button
-				onclick={async () => {
-					await authClient.signOut({
-						fetchOptions: {
-							onSuccess: () =>
-								goto('/login', {
-									replaceState: true
-								})
-						}
-					});
-				}}
-			>
-				Sign Out
-			</button>
+			<button onclick={handleSignOut}> Sign Out </button>
 		</div>
 	{:else}
 		<a href="/login">Sign in</a>

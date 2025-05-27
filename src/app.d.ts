@@ -8,6 +8,12 @@ interface Env {
 
 export type Auth = ReturnType<typeof getAuth>;
 
+export type User = {
+	id: string;
+	name: string;
+	email: string;
+};
+
 declare global {
 	namespace App {
 		interface Platform {
@@ -19,11 +25,7 @@ declare global {
 		interface Locals {
 			db: import('$lib/server/db/connection').DbClient;
 			auth: Auth;
-			user?: {
-				id: string;
-				name: string;
-				email: string;
-			};
+			user?: User;
 		}
 	}
 }
