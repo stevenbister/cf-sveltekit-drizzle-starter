@@ -52,7 +52,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright Browsers
-        run: pnpx playwright install --with-deps
+        run: pnpx playwright install --with-deps chromium
       - name: Run Playwright tests
         env:
           PLAYWRIGHT_TEST_BASE_URL: ${{ needs.build.outputs.alias }}

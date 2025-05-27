@@ -1,4 +1,3 @@
-import { env } from 'cloudflare:test';
 import { drizzle } from 'drizzle-orm/d1';
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -9,7 +8,14 @@ vi.mock('drizzle-orm/d1', () => ({
 	drizzle: vi.fn()
 }));
 
-const mockDBBindings: DBType = env.DB;
+const mockEnv: Partial<DBType> = {
+	prepare: vi.fn(),
+	dump: vi.fn(),
+	batch: vi.fn(),
+	exec: vi.fn()
+};
+
+const mockDBBindings = mockEnv as DBType;
 const mockDbClient = vi.mocked(drizzle);
 
 describe('Database.initialize', () => {
