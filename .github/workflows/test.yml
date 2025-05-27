@@ -67,4 +67,7 @@ jobs:
           version: 9
       - name: Install dependencies
         run: pnpm install
-      - run: pnpm test:unit
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run tests
+        run: pnpm test:unit
