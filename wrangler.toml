@@ -31,6 +31,7 @@ binding = "DB"
 database_name = "my-database"
 database_id = "dc32e43d-b62f-4cd3-8cbf-68e242187dce"
 migrations_dir = "drizzle/migrations"
+preview_database_id = "DB"
 
 # Bind a Durable Object. Durable objects are a scale-to-zero compute primitive based on the actor model.
 # Durable Objects can live for as long as needed. Use these when you need a long-running "server", such as in realtime apps.
