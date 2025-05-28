@@ -2,9 +2,9 @@ import { eq } from 'drizzle-orm';
 
 import type { DbClient } from '../connection';
 import { user } from '../schema/user';
-import { TableCommon } from './TableCommon';
+import { Query } from './Query';
 
-export class User extends TableCommon<typeof user> {
+export class UserQuery extends Query<typeof user> {
 	constructor(db: DbClient) {
 		super(db, user);
 	}
