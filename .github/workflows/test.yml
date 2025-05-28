@@ -69,5 +69,9 @@ jobs:
         run: pnpm install
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
+      - name: Create test db
+        run: pnpm create-test-db
       - name: Run tests
         run: pnpm test:unit
+      - name: Cleanup test db
+        run: pnpm rm-test-db
