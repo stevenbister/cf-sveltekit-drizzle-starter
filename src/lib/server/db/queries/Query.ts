@@ -11,7 +11,7 @@ export type TableWithID = Table & {
 	id: SQLiteColumn;
 };
 
-export class TableCommon<T extends TableWithID = TableWithID> {
+export class Query<T extends TableWithID = TableWithID> {
 	readonly db: DbClient;
 	readonly schema: T;
 

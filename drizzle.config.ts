@@ -1,24 +1,10 @@
 import { defineConfig } from 'drizzle-kit';
-import fs from 'fs';
-import path from 'path';
 
-function getLocalD1DB() {
-	try {
-		const basePath = path.resolve('.wrangler/state/v3/d1');
-		const dbFile = fs
-			.readdirSync(basePath, { encoding: 'utf-8', recursive: true })
-			.find((f) => f.endsWith('.sqlite'));
+const getLocalDB = () => {
+	if (process.env.NODE_ENV === 'test') return './src/lib/server/db/test/test.db';
 
-		if (!dbFile) {
-			throw new Error(`.sqlite file not found in ${basePath}`);
-		}
-
-		const url = path.resolve(basePath, dbFile);
-		return url;
-	} catch (err) {
-		console.log(`Error  ${err.message}`);
-	}
-}
+	return process.env.LOCAL_D1_DB;
+};
 
 export default defineConfig({
 	schema: './src/lib/server/db/schema/*.ts',
@@ -26,7 +12,7 @@ export default defineConfig({
 	verbose: true,
 	strict: true,
 	dialect: 'sqlite',
-	...(process.env.NODE_ENV === 'production' || process.env.CI
+	...(process.env.NODE_ENV === 'production'
 		? {
 				driver: 'd1-http',
 				dbCredentials: {
@@ -37,7 +23,7 @@ export default defineConfig({
 			}
 		: {
 				dbCredentials: {
-					url: getLocalD1DB()
+					url: getLocalDB()
 				}
 			})
 });

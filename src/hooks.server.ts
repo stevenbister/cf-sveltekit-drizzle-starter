@@ -27,7 +27,12 @@ const checkAuth: Handle = async ({ event, resolve }) => {
 	const session = await auth.api.getSession({ headers });
 
 	if (!session) {
-		const publicPaths = ['/login', '/forgot-password', '/reset-password'];
+		const publicPaths = [
+			'/login',
+			'/forgot-password',
+			'/reset-password',
+			process.env.NODE_ENV === 'development' ? '/api/seed' : ''
+		];
 
 		if (publicPaths.includes(event.url.pathname)) return await resolve(event);
 

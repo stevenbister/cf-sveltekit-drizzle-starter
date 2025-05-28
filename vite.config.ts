@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	plugins: [sveltekit()],
 	test: {
+		globalSetup: ['./vitest-setup-global.ts'],
 		workspace: [
 			{
 				// Client-side tests (Svelte components)
