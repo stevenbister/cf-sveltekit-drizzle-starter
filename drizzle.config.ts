@@ -12,7 +12,7 @@ export default defineConfig({
 	verbose: true,
 	strict: true,
 	dialect: 'sqlite',
-	...(process.env.NODE_ENV === 'production' || process.env.CI
+	...(process.env.NODE_ENV === 'production'
 		? {
 				driver: 'd1-http',
 				dbCredentials: {
