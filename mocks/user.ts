@@ -1,5 +1,5 @@
-import type { Account } from '$lib/server/db/schema/account';
-import type { User } from '$lib/server/db/schema/user';
+import type { Account } from '$server/db/schema/account';
+import type { User } from '$server/db/schema/user';
 
 export const mockUser: User = {
 	id: '1234',

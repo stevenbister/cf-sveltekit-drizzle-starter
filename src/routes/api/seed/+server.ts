@@ -1,6 +1,6 @@
-import { type DrizzleD1, clearTables } from '$lib/server/db/seed';
 import { pageNotFound } from '$lib/utils/pageNotFound';
 import { mockAccount, mockUser } from '$mocks/user';
+import { type DrizzleD1, clearTables } from '$server/db/seed';
 
 import type { RequestHandler } from './$types';
 

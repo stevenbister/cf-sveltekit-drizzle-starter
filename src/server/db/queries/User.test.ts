@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { mockUser } from '../../../../../mocks/user';
+import { mockUser } from '$mocks/user';
+
 import type { DrizzleD1 } from '../seed';
 import { testDB } from '../test/test-adapter';
 import { UserQuery } from './User';

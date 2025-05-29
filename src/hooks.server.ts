@@ -3,7 +3,7 @@ import { sequence } from '@sveltejs/kit/hooks';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 
 import { getAuth } from '$lib/auth/server';
-import { Database } from '$lib/server/db/connection';
+import { Database } from '$server/db/connection';
 
 const setDB: Handle = async ({ event, resolve }) => {
 	Database.initialize(event.platform?.env.DB);
