@@ -2,7 +2,7 @@ import { test as setup } from '@playwright/test';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { mockAccount, mockUser } from '../mocks/user';
+import { mockAccount, mockUser } from '$mocks/user';
 
 const __filename = fileURLToPath(import.meta.url);
 
