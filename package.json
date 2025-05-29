@@ -61,6 +61,7 @@
 	"dependencies": {
 		"bcryptjs": "^3.0.2",
 		"better-auth": "^1.2.8",
+		"bits-ui": "^2.3.0",
 		"drizzle-orm": "^0.43.1"
 	}
 }
