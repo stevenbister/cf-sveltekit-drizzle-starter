@@ -1,13 +1,13 @@
 import { defineConfig } from 'drizzle-kit';
 
 const getLocalDB = () => {
-	if (process.env.NODE_ENV === 'test') return './src/lib/server/db/test/test.db';
+	if (process.env.NODE_ENV === 'test') return './src/server/db/test/test.db';
 
 	return process.env.LOCAL_D1_DB;
 };
 
 export default defineConfig({
-	schema: './src/lib/server/db/schema/*.ts',
+	schema: './src/server/db/schema/*.ts',
 	out: './drizzle/migrations',
 	verbose: true,
 	strict: true,

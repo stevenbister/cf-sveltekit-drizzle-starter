@@ -10,8 +10,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
-		"create-test-db": "touch src/lib/server/db/test/test.db && NODE_ENV=test drizzle-kit push --force",
-		"rm-test-db": "rm -rf src/lib/server/db/test/test.db",
+		"create-test-db": "touch src/server/db/test/test.db && NODE_ENV=test drizzle-kit push --force",
+		"rm-test-db": "rm -rf src/server/db/test/test.db",
 		"test:unit": "vitest run",
 		"test:unit:watch": "vitest",
 		"test:unit:ui": "vitest --ui",
@@ -61,6 +61,7 @@
 	"dependencies": {
 		"bcryptjs": "^3.0.2",
 		"better-auth": "^1.2.8",
+		"bits-ui": "^2.3.0",
 		"drizzle-orm": "^0.43.1"
 	}
 }

@@ -1,7 +1,8 @@
 import type { drizzle as drizzleSqlite } from 'drizzle-orm/better-sqlite3';
 import type { drizzle as drizzleD1 } from 'drizzle-orm/d1';
 
-import { mockUser } from '../../../../mocks/user';
+import { mockUser } from '$mocks/user';
+
 import * as schema from './schema';
 
 export type DrizzleD1 = ReturnType<typeof drizzleD1<typeof schema>>;

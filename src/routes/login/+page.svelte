@@ -1,8 +1,6 @@
 <script lang="ts">
+	import Button from '$/lib/components/button/button.svelte';
 	import { authClient } from '$lib/auth/client';
-	import { getUserContext } from '$lib/context/user';
-
-	const user = getUserContext();
 
 	const formData = $state({
 		email: '',
@@ -27,7 +25,7 @@
 	};
 </script>
 
-<h1>Login/Register</h1>
+<h1>Login</h1>
 <form method="post" onsubmit={handleSignIn}>
 	<label>
 		Email
@@ -37,6 +35,6 @@
 		Password
 		<input type="password" name="password" bind:value={formData.password} />
 	</label>
-	<button>Login</button>
-	{user()?.name}
+
+	<Button>Login</Button>
 </form>

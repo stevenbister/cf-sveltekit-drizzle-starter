@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { mockUser } from '../mocks/user';
+import { mockUser } from '$mocks/user';
 
 test.describe('logged in', () => {
 	test('home page has username in heading when logged in', async ({ page }) => {

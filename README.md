@@ -108,6 +108,10 @@ Auth is handled by [better-auth](https://www.better-auth.com/docs/introduction) 
 
 Visit their docs to extend this, the server and client configs can be found in `./src/lib/auth`.
 
+## Components
+
+Components are build on top of [Bits UI](https://www.bits-ui.com/docs/getting-started)
+
 ## Building
 
 To create a production version of your app:
