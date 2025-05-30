@@ -22,7 +22,12 @@ $config: (
 	),
 	margin-inline: (
 		prefix: 'mx',
-		values: getVars(0, 15, 'size')
+		values: map.merge(
+				getVars(0, 15, 'size'),
+				(
+					'auto': auto
+				)
+			)
 	),
 	margin-block-start: (
 		prefix: 'mt',
