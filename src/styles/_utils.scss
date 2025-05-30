@@ -1,74 +1,88 @@
 @use 'sass:map';
 @use 'sass:list';
 
+@function getVars($min, $max, $prefix) {
+	$map: ();
+
+	@for $i from $min through $max {
+		$map: map.set($map, #{$i}, var(--#{$prefix}-#{$i}));
+	}
+
+	@return $map;
+}
+
 $config: (
 	margin: (
 		prefix: 'm',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	margin-block: (
 		prefix: 'my',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	margin-inline: (
 		prefix: 'mx',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	margin-block-start: (
 		prefix: 'mt',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	margin-block-end: (
 		prefix: 'mb',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	margin-inline-start: (
 		prefix: 'ml',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	margin-inline-end: (
 		prefix: 'mr',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	padding: (
 		prefix: 'p',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	padding-block: (
 		prefix: 'py',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	padding-inline: (
 		prefix: 'px',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	padding-block-start: (
 		prefix: 'pt',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	padding-block-end: (
 		prefix: 'pb',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	padding-inline-start: (
 		prefix: 'pl',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	padding-inline-end: (
 		prefix: 'pr',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	gap: (
 		prefix: 'gap',
-		values: ()
+		values: getVars(0, 15, 'size')
 	),
 	font-size: (
 		prefix: 'fs',
-		values: ()
+		values: getVars(1, 8, 'font-size')
 	),
 	font-weight: (
 		prefix: 'fw',
-		values: ()
+		values: getVars(1, 9, 'font-weight')
+	),
+	line-height: (
+		prefix: 'lh',
+		values: getVars(1, 5, 'font-lineheight')
 	),
 	text-decoration: (
 		prefix: 'td',
@@ -84,13 +98,11 @@ $config: (
 			right: right
 		)
 	),
-	line-height: (
-		prefix: 'lh',
-		values: ()
-	),
 	color: (
 		prefix: 'c',
-		values: ()
+		values: (
+			'brand': var(--brand-light)
+		)
 	)
 );
 
