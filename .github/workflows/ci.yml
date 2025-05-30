@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: ⬣ Lint
+        run: pnpm lint
+
+      - name: ʦ TypeCheck
+        run: pnpm check
+
+      - name: 🎭 Install playwright deps
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: 🗃️ Create test db
+        run: pnpm create-test-db
+
+      - name: ⚡ Test
+        run: pnpm test:unit
+
+      - name: 🗃️ Clean up database
+        run: pnpm rm-test-db
