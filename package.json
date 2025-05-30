@@ -44,8 +44,11 @@
 		"eslint-config-prettier": "^10.1.5",
 		"eslint-plugin-svelte": "^3.9.0",
 		"globals": "^16.2.0",
+		"postcss": "^8.5.4",
+		"postcss-jit-props": "^1.0.16",
 		"prettier": "^3.5.3",
 		"prettier-plugin-svelte": "^3.4.0",
+		"sass": "^1.89.0",
 		"stylelint": "^16.19.1",
 		"stylelint-config-idiomatic-order": "^10.0.0",
 		"stylelint-config-standard-scss": "^15.0.1",
@@ -62,6 +65,7 @@
 		"bcryptjs": "^3.0.2",
 		"better-auth": "^1.2.8",
 		"bits-ui": "^2.3.0",
-		"drizzle-orm": "^0.43.1"
+		"drizzle-orm": "^0.43.1",
+		"open-props": "^1.7.15"
 	}
 }
