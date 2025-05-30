@@ -110,7 +110,7 @@ Visit their docs to extend this, the server and client configs can be found in `
 
 ## Components
 
-Components are build on top of [Bits UI](https://www.bits-ui.com/docs/getting-started)
+Components are build on top of [Bits UI](https://www.bits-ui.com/docs/getting-started) and styled with [Open Props](https://open-props.style/)
 
 ## Building
 
