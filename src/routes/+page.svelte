@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$/lib/components/button/button.svelte';
 	import { invalidateAll } from '$app/navigation';
 	import { authClient } from '$lib/auth/client';
 	import { getUserContext } from '$lib/context/user';
@@ -14,14 +15,16 @@
 </script>
 
 <div>
-	{#if user()}
-		<div>
-			<h1>
-				Hello {user().name}
-			</h1>
-			<button onclick={handleSignOut}> Sign Out </button>
-		</div>
-	{:else}
-		<a href="/login">Sign in</a>
-	{/if}
+	<h2 class="ta-center">
+		Hello {user().name}
+	</h2>
+	<Button onclick={handleSignOut} class="mx-auto">Sign Out</Button>
 </div>
+
+<style>
+	div {
+		display: flex;
+		flex-direction: column;
+		gap: var(--size-4);
+	}
+</style>
