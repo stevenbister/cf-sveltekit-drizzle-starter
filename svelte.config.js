@@ -16,7 +16,8 @@ const config = {
 			$: 'src',
 			$constants: 'src/constants',
 			$server: 'src/server',
-			$mocks: 'mocks'
+			$mocks: 'mocks',
+			$styles: 'src/styles'
 		}
 	}
 };

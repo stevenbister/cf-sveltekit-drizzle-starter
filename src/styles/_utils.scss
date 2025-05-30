@@ -1,0 +1,137 @@
+@use 'sass:map';
+@use 'sass:list';
+
+@function getVars($min, $max, $prefix) {
+	$map: ();
+
+	@for $i from $min through $max {
+		$map: map.set($map, #{$i}, var(--#{$prefix}-#{$i}));
+	}
+
+	@return $map;
+}
+
+$config: (
+	margin: (
+		prefix: 'm',
+		values: getVars(0, 15, 'size')
+	),
+	margin-block: (
+		prefix: 'my',
+		values: getVars(0, 15, 'size')
+	),
+	margin-inline: (
+		prefix: 'mx',
+		values: map.merge(
+				getVars(0, 15, 'size'),
+				(
+					'auto': auto
+				)
+			)
+	),
+	margin-block-start: (
+		prefix: 'mt',
+		values: getVars(0, 15, 'size')
+	),
+	margin-block-end: (
+		prefix: 'mb',
+		values: getVars(0, 15, 'size')
+	),
+	margin-inline-start: (
+		prefix: 'ml',
+		values: getVars(0, 15, 'size')
+	),
+	margin-inline-end: (
+		prefix: 'mr',
+		values: getVars(0, 15, 'size')
+	),
+	padding: (
+		prefix: 'p',
+		values: getVars(0, 15, 'size')
+	),
+	padding-block: (
+		prefix: 'py',
+		values: getVars(0, 15, 'size')
+	),
+	padding-inline: (
+		prefix: 'px',
+		values: getVars(0, 15, 'size')
+	),
+	padding-block-start: (
+		prefix: 'pt',
+		values: getVars(0, 15, 'size')
+	),
+	padding-block-end: (
+		prefix: 'pb',
+		values: getVars(0, 15, 'size')
+	),
+	padding-inline-start: (
+		prefix: 'pl',
+		values: getVars(0, 15, 'size')
+	),
+	padding-inline-end: (
+		prefix: 'pr',
+		values: getVars(0, 15, 'size')
+	),
+	gap: (
+		prefix: 'gap',
+		values: getVars(0, 15, 'size')
+	),
+	font-size: (
+		prefix: 'fs',
+		values: getVars(1, 8, 'font-size')
+	),
+	font-weight: (
+		prefix: 'fw',
+		values: getVars(1, 9, 'font-weight')
+	),
+	line-height: (
+		prefix: 'lh',
+		values: getVars(1, 5, 'font-lineheight')
+	),
+	text-decoration: (
+		prefix: 'td',
+		values: (
+			none: none
+		)
+	),
+	text-align: (
+		prefix: 'ta',
+		values: (
+			left: left,
+			center: center,
+			right: right
+		)
+	),
+	color: (
+		prefix: 'c',
+		values: (
+			'brand': var(--brand-light)
+		)
+	)
+);
+
+@each $property, $values in $config {
+	$prefix: map.get($values, prefix);
+	$values: map.get($values, values);
+
+	@each $key, $value in $values {
+		.#{$prefix}-#{$key} {
+			@if $value {
+				#{$property}: $value;
+			} @else {
+				#{$property}: $key;
+			}
+		}
+	}
+}
+
+.sr-only:not(:focus, :active) {
+	position: absolute;
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}

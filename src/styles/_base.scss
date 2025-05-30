@@ -1,0 +1,27 @@
+:root {
+	--brand-light: var(--blue-5);
+
+	--text-1-light: var(--gray-8);
+	--text-2-light: var(--gray-7);
+
+	--surface-1-light: var(--gray-0);
+	--surface-2-light: var(--gray-1);
+	--surface-3-light: var(--gray-2);
+	--surface-4-light: var(--gray-3);
+
+	--font-family: var(--font-system-ui);
+}
+
+body {
+	background: var(--surface-1-light);
+	color: var(--text-1-light);
+	font-family: var(--font-family);
+	font-size: var(--font-size-1);
+	font-weight: var(--font-weight-4);
+	line-height: var(--font-lineheight-1);
+}
+
+:focus-visible {
+	outline: 2px solid var(--brand-light);
+	outline-offset: 2px;
+}
