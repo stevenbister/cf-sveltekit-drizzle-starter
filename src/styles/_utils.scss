@@ -1,0 +1,120 @@
+@use 'sass:map';
+@use 'sass:list';
+
+$config: (
+	margin: (
+		prefix: 'm',
+		values: ()
+	),
+	margin-block: (
+		prefix: 'my',
+		values: ()
+	),
+	margin-inline: (
+		prefix: 'mx',
+		values: ()
+	),
+	margin-block-start: (
+		prefix: 'mt',
+		values: ()
+	),
+	margin-block-end: (
+		prefix: 'mb',
+		values: ()
+	),
+	margin-inline-start: (
+		prefix: 'ml',
+		values: ()
+	),
+	margin-inline-end: (
+		prefix: 'mr',
+		values: ()
+	),
+	padding: (
+		prefix: 'p',
+		values: ()
+	),
+	padding-block: (
+		prefix: 'py',
+		values: ()
+	),
+	padding-inline: (
+		prefix: 'px',
+		values: ()
+	),
+	padding-block-start: (
+		prefix: 'pt',
+		values: ()
+	),
+	padding-block-end: (
+		prefix: 'pb',
+		values: ()
+	),
+	padding-inline-start: (
+		prefix: 'pl',
+		values: ()
+	),
+	padding-inline-end: (
+		prefix: 'pr',
+		values: ()
+	),
+	gap: (
+		prefix: 'gap',
+		values: ()
+	),
+	font-size: (
+		prefix: 'fs',
+		values: ()
+	),
+	font-weight: (
+		prefix: 'fw',
+		values: ()
+	),
+	text-decoration: (
+		prefix: 'td',
+		values: (
+			none: none
+		)
+	),
+	text-align: (
+		prefix: 'ta',
+		values: (
+			left: left,
+			center: center,
+			right: right
+		)
+	),
+	line-height: (
+		prefix: 'lh',
+		values: ()
+	),
+	color: (
+		prefix: 'c',
+		values: ()
+	)
+);
+
+@each $property, $values in $config {
+	$prefix: map.get($values, prefix);
+	$values: map.get($values, values);
+
+	@each $key, $value in $values {
+		.#{$prefix}-#{$key} {
+			@if $value {
+				#{$property}: $value;
+			} @else {
+				#{$property}: $key;
+			}
+		}
+	}
+}
+
+.sr-only:not(:focus, :active) {
+	position: absolute;
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
