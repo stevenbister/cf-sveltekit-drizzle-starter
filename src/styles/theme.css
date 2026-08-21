@@ -1,0 +1,27 @@
+@import "open-props/palette";
+
+:root {
+  --palette-hue: 241;
+  --palette-hue-rotate-by: 2;
+  --palette-chroma: 0.09;
+}
+
+:where(html) {
+	--surface-light: var(--color-2);
+	--surface-dark: var(--color-14);
+
+	--text-light: var(--color-14);
+	--text-dark: var(--color-2);
+}
+
+:root {
+	--surface: var(--surface-light);
+	--text: var(--text-light);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--surface: var(--surface-dark);
+		--text: var(--text-dark);
+	}
+}
