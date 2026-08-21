@@ -1,30 +1,37 @@
+import { defineConfig } from 'vitest/config';
+import { playwright } from '@vitest/browser-playwright';
+import adapter from '@sveltejs/adapter-cloudflare';
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
 
 export default defineConfig({
-	plugins: [sveltekit()],
+	plugins: [
+		sveltekit({
+			compilerOptions: {
+				// Force runes mode for the project, except for libraries. Can be removed in svelte 6.
+				runes: ({ filename }) =>
+					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
+			},
+			adapter: adapter()
+		})
+	],
 	test: {
-		globalSetup: ['./vitest-setup-global.ts'],
-		workspace: [
+		expect: { requireAssertions: true },
+		projects: [
 			{
-				// Client-side tests (Svelte components)
 				extends: './vite.config.ts',
 				test: {
 					name: 'client',
-					environment: 'browser',
 					browser: {
 						enabled: true,
-						headless: true,
-						provider: 'playwright',
-						instances: [{ browser: 'chromium' }]
+						provider: playwright(),
+						instances: [{ browser: 'chromium', headless: true }]
 					},
 					include: ['src/**/*.svelte.{test,spec}.{js,ts}'],
-					exclude: ['src/lib/server/**', 'src/**/*.ssr.{test,spec}.{js,ts}'],
-					setupFiles: ['./vitest-setup-client.ts']
+					exclude: ['src/lib/server/**']
 				}
 			},
+
 			{
-				// Server-side tests
 				extends: './vite.config.ts',
 				test: {
 					name: 'server',

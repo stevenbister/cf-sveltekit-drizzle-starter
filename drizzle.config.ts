@@ -1,29 +1,18 @@
 import { defineConfig } from 'drizzle-kit';
 
-const getLocalDB = () => {
-	if (process.env.NODE_ENV === 'test') return './src/server/db/test/test.db';
-
-	return process.env.LOCAL_D1_DB;
-};
+if (!process.env.CLOUDFLARE_ACCOUNT_ID) throw new Error('CLOUDFLARE_ACCOUNT_ID is not set');
+if (!process.env.CLOUDFLARE_DATABASE_ID) throw new Error('CLOUDFLARE_DATABASE_ID is not set');
+if (!process.env.CLOUDFLARE_D1_TOKEN) throw new Error('CLOUDFLARE_D1_TOKEN is not set');
 
 export default defineConfig({
-	schema: './src/server/db/schema/*.ts',
-	out: './drizzle/migrations',
-	verbose: true,
-	strict: true,
+	schema: './src/lib/server/db/schema.ts',
 	dialect: 'sqlite',
-	...(process.env.NODE_ENV === 'production'
-		? {
-				driver: 'd1-http',
-				dbCredentials: {
-					accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
-					databaseId: process.env.CLOUDFLARE_DATABASE_ID!,
-					token: process.env.CLOUDFLARE_D1_TOKEN!
-				}
-			}
-		: {
-				dbCredentials: {
-					url: getLocalDB()
-				}
-			})
+	driver: 'd1-http',
+	dbCredentials: {
+		accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+		databaseId: process.env.CLOUDFLARE_DATABASE_ID,
+		token: process.env.CLOUDFLARE_D1_TOKEN
+	},
+	verbose: true,
+	strict: true
 });

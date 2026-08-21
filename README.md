@@ -1,137 +1,42 @@
-# CF Svelte Drizzle starter
+# sv
 
-## Getting started
+Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
-Find and replace `cf-sveltekit-drizzle` and with the name of your pages project.
+## Creating a project
 
-### Create a database
+If you're seeing this, you've probably already done this step. Congrats!
 
-```bash
-pnpm dlx wrangler d1 create my-database
+```sh
+# create a new project
+npx sv create my-app
 ```
 
-### Bind to your D1 database
+To recreate this project with the same configuration:
 
-Copy the lines obtained from the cli command above.
-
-Add them to the wrangler.toml file. Particularly the database name and the id.
-
-Make sure to also update any reference of `my-database` with your new db name.
-
-You'll also need to add your cloudflare account id, database id and d1 token to your .env file.
-
-```txt
-CLOUDFLARE_ACCOUNT_ID=
-CLOUDFLARE_DATABASE_ID=
-CLOUDFLARE_D1_TOKEN=
+```sh
+# recreate this project
+pnpm dlx sv@0.17.0 create --template minimal --types ts --add prettier eslint vitest="usages:component,unit" playwright sveltekit-adapter="adapter:cloudflare+cfTarget:workers" --install pnpm .
 ```
-
-These can all be found in your cloudflare dashboard.
-
-- https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/
-- https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
-
-Make sure your D1 token has **D1:Read, D1:Edit** permissions.
-
-### CI
-
-In order for the CI workflows to run there's a couple of things you'll need to setup in GitHub.
-
-You'll need to add the following to the repository secrets.
-
-```txt
-CLOUDFLARE_ACCOUNT_ID=
-CLOUDFLARE_DATABASE_ID=
-CLOUDFLARE_D1_TOKEN=
-CLOUDFLARE_PAGES_API_TOKEN=
-GH_TOKEN=
-```
-
-Your `CLOUDFLARE_PAGES_API_TOKEN` should be created in your CF account: https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
-
-And this should have at least **Workers Builds Configuration:Read, Cloudflare Pages:Read** permissions.
-
-You'll also need to generate a GitHub access token with **Deployments** set to write.
-
-https://docs.github.com/en/rest/deployments/deployments?apiVersion=2022-11-28#create-a-deployment
 
 ## Developing
 
-Once you've created a project and installed dependencies with `pnpm install`, start a development server:
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-### Bootstrap local db
-
-Before starting any work you'll need to bootstrap the D1 database locally.
-
-```bash
-pnpm db:generate
-```
-
-```bash
-pnpm dev
+```sh
+npm run dev
 
 # or start the server and open the app in a new browser tab
-pnpm dev -- --open
+npm run dev -- --open
 ```
-
-### Creating and applying migrations
-
-In this project we're using Drizzle as our ORM.
-
-To create a migration:
-
-```bash
-pnpm db:generate
-```
-
-Apply that migration to the local db
-
-```bash
-pnpm db:migrate
-```
-
-### Seeding
-
-Because D1 requires serverless bindings to interact with Drizzle we have an api route to seed our data `/api/seed`.
-
-This is only available when the development environment.
-
-We can seed our local db from this route by running
-
-```bash
-pnpm db:seed:local
-```
-
-## Auth
-
-Auth is handled by [better-auth](https://www.better-auth.com/docs/introduction) and initially set up with a simple email/password auth flow.
-
-Visit their docs to extend this, the server and client configs can be found in `./src/lib/auth`.
-
-## Components
-
-Components are build on top of [Bits UI](https://www.bits-ui.com/docs/getting-started) and styled with [Open Props](https://open-props.style/)
 
 ## Building
 
 To create a production version of your app:
 
-```bash
-pnpm build
+```sh
+npm run build
 ```
 
-You can preview the production build with `pnpm preview`.
+You can preview the production build with `npm run preview`.
 
-## Deployment
-
-Deploy the database by running
-
-```bash
-pnpm deploy:db
-```
-
-Deploy pages by running
-
-```bash
-pnpm deploy:pages
-```
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
