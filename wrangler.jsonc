@@ -2,12 +2,22 @@
 	"$schema": "./node_modules/wrangler/config-schema.json",
 	"name": "cf-sveltekit-drizzle-starter",
 	"compatibility_date": "2026-08-21",
-	"compatibility_flags": ["nodejs_als"],
+	"compatibility_flags": [
+		"nodejs_als"
+	],
 	"main": ".svelte-kit/cloudflare/_worker.js",
 	"assets": {
 		"binding": "ASSETS",
 		"directory": ".svelte-kit/cloudflare"
 	},
 	"workers_dev": true,
-	"preview_urls": true
+	"preview_urls": true,
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "test",
+			"database_id": "59f86ae4-b848-4d4f-8b5e-1baee32d7d84",
+			"migrations_dir": "./src/lib/server/db/migrations"
+		}
+	]
 }

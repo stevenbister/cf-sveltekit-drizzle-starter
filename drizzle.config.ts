@@ -6,13 +6,22 @@ if (!process.env.CLOUDFLARE_D1_TOKEN) throw new Error('CLOUDFLARE_D1_TOKEN is no
 
 export default defineConfig({
 	schema: './src/lib/server/db/schema.ts',
+	out: './src/lib/server/db/migrations',
 	dialect: 'sqlite',
-	driver: 'd1-http',
-	dbCredentials: {
-		accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
-		databaseId: process.env.CLOUDFLARE_DATABASE_ID,
-		token: process.env.CLOUDFLARE_D1_TOKEN
-	},
 	verbose: true,
-	strict: true
+	strict: true,
+	...(process.env.NODE_ENV === 'production'
+		? {
+				driver: 'd1-http',
+				dbCredentials: {
+					accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
+					databaseId: process.env.CLOUDFLARE_DATABASE_ID!,
+					token: process.env.CLOUDFLARE_D1_TOKEN!
+				}
+			}
+		: {
+				dbCredentials: {
+					url: process.env.LOCAL_D1_DB
+				}
+			})
 });

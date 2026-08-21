@@ -15,7 +15,13 @@
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright install && playwright test",
-		"gen": "wrangler types"
+		"gen": "wrangler types",
+		"db:generate": "drizzle-kit generate",
+		"db:push": "node scripts/run-drizzle.js push",
+		"db:studio": "node scripts/run-drizzle.js studio",
+		"db:migrate": "node scripts/run-drizzle.js migrate",
+		"db:setup": "node scripts/setup-db.js",
+		"db:seed": "wrangler d1 execute DB --local --file=src/lib/server/db/seed.sql"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
@@ -23,7 +29,7 @@
 		"@sveltejs/adapter-cloudflare": "^7.2.8",
 		"@sveltejs/kit": "^2.63.0",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
-		"@types/node": "^24",
+		"@types/node": "^24.13.3",
 		"@vitest/browser-playwright": "^4.1.8",
 		"drizzle-kit": "^0.31.10",
 		"drizzle-orm": "^0.45.2",
