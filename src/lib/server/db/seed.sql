@@ -1,0 +1,4 @@
+DELETE FROM task;
+
+INSERT INTO task (id, title, priority)
+VALUES ('00000000-0000-0000-0000-000000000001', 'Demo', 1);

@@ -1,9 +1,10 @@
-test-results
 node_modules
 
 # Output
 .output
 .vercel
+.netlify
+.wrangler
 /.svelte-kit
 /build
 
@@ -21,11 +22,11 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+# Playwright
+test-results
+
+# Cloudflare Types
+worker-configuration.d.ts
+
 # SQLite
 *.db
-
-# wrangler files
-.wrangler
-.dev.vars
-
-playwright/.auth

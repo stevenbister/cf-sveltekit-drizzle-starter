@@ -1,30 +1,15 @@
 <script lang="ts">
-	import Button from '$/lib/components/button/button.svelte';
-	import { invalidateAll } from '$app/navigation';
-	import { authClient } from '$lib/auth/client';
-	import { getUserContext } from '$lib/context/user';
+	import type { PageProps } from './$types';
 
-	const user = getUserContext();
-
-	const handleSignOut = async () =>
-		await authClient.signOut({
-			fetchOptions: {
-				onSuccess: () => invalidateAll()
-			}
-		});
+	let { data }: PageProps = $props();
 </script>
 
-<div>
-	<h2 class="ta-center">
-		Hello {user().name}
-	</h2>
-	<Button onclick={handleSignOut} class="mx-auto">Sign Out</Button>
-</div>
+<h1>Welcome to SvelteKit</h1>
+<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
-<style>
-	div {
-		display: flex;
-		flex-direction: column;
-		gap: var(--size-4);
-	}
-</style>
+<h2>Tasks</h2>
+<ul>
+	{#each data.tasks as task (task.id)}
+		<li>{task.title}</li>
+	{/each}
+</ul>

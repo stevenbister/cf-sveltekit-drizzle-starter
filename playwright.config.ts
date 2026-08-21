@@ -1,28 +1,7 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-	testDir: 'tests',
 	workers: process.env.CI ? 1 : undefined,
-	projects: [
-		{
-			name: 'setup',
-			testMatch: /.*\.setup\.ts/
-		},
-		{
-			name: 'tests',
-			use: {
-				storageState: 'playwright/.auth/session.json'
-			},
-			dependencies: ['setup']
-		}
-	],
-	use: {
-		baseURL: process.env.CI ? process.env.PLAYWRIGHT_TEST_BASE_URL : 'http://localhost:8788'
-	},
-	webServer: process.env.CI
-		? undefined
-		: {
-				command: 'pnpm preview',
-				port: 8788
-			}
+	webServer: { command: 'npm run build && npm run preview', port: 4173 },
+	testDir: 'e2e'
 });

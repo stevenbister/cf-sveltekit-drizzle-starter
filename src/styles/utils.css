@@ -1,0 +1,89 @@
+/* Typography */
+.serif {
+	font-family: serif;
+}
+
+.ta-center {
+	text-align: center;
+}
+
+.text-light {
+	font-weight: var(--font-weight-3);
+}
+
+.text-regular {
+	font-weight: var(--font-weight-4);
+}
+
+.text-balance {
+	text-wrap: balance;
+}
+
+/* Layout */
+.container {
+	width: min(100%, var(--container-max-width, 1200px));
+	padding-inline: var(--container-padding, var(--size-px-4));
+	margin-inline: auto;
+
+	&.narrow {
+		--container-max-width: 600px;
+	}
+}
+
+.flex {
+	display: flex;
+}
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+}
+
+.align-center {
+	align-items: center;
+}
+
+.center-block {
+	margin-inline: auto;
+}
+
+.full-width {
+	width: 100%;
+}
+
+/* Display */
+.hidden {
+	display: none;
+}
+
+/* Spacing */
+.space-top-2 {
+	margin-block-start: var(--size-px-2);
+}
+
+.space-top-3 {
+	margin-block-start: var(--size-px-3);
+}
+
+.space-top-4 {
+	margin-block-start: var(--size-px-4);
+}
+
+.space-top-7 {
+	margin-block-start: var(--size-px-7);
+}
+
+/* A11y */
+.sr-only:not(:focus):not(:active) {
+	position: absolute;
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+	clip: rect(0 0 0 0);
+	clip-path: inset(100%);
+	white-space: nowrap;
+}
+
+.decorative {
+	pointer-events: none;
+}

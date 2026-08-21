@@ -2,5 +2,11 @@
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
-drizzle/migrations
-.wrangler
+bun.lock
+bun.lockb
+
+# Miscellaneous
+/static/
+/drizzle/
+/src/lib/server/db/migrations/
+worker-configuration.d.ts
