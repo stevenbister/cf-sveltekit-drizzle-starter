@@ -35,7 +35,7 @@ These can all be found in your cloudflare dashboard.
 
 Make sure your D1 token has **D1:Read, D1:Edit** permissions.
 
-> [!NOTE] 
+> [!NOTE]
 > In order for the CI workflows to run add these secrets to the repo.
 
 To get your local database setup run

@@ -1,9 +1,9 @@
-@import "open-props/palette";
+@import 'open-props/palette';
 
 :root {
-  --palette-hue: 241;
-  --palette-hue-rotate-by: 2;
-  --palette-chroma: 0.09;
+	--palette-hue: 241;
+	--palette-hue-rotate-by: 2;
+	--palette-chroma: 0.09;
 }
 
 :where(html) {
