@@ -7,19 +7,21 @@ import { parseArgs } from 'node:util';
  * Script to run drizzle-kit against local D1 sqlite file.
  */
 
-// Any drizzle-kit command e.g. "studio" or "migrate"
-const [, , subcommand] = process.argv;
-if (!subcommand) {
-	console.error('Usage: node scripts/run-drizzle.js <drizzle-kit-subcommand>');
-	process.exit(1);
-}
-
-const { values } = parseArgs({
-	args: ['--remote'],
-	options: {
-		remote: { type: 'boolean', default: false }
-	}
+const { values, positionals } = parseArgs({
+    options: {
+        remote: { type: 'boolean', default: false },
+    },
+    allowPositionals: true,
 });
+
+// Any drizzle-kit command e.g. "studio" or "migrate"
+const [subcommand] = positionals;
+if (!subcommand) {
+    console.error(
+        'Usage: node scripts/run-drizzle.js <drizzle-kit-subcommand> [--remote]'
+    );
+    process.exit(1);
+}
 
 let child;
 
